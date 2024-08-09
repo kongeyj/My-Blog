@@ -1,0 +1,15 @@
+---
+
+---
+
+<button id="button">Click Me</button>
+<script>
+  function handleClick() {
+    alert(1);
+    console.log("button clicked!");
+  }
+  const button = document.getElementById("button");
+  if (button != null) {
+    button.addEventListener("click", handleClick);
+  }
+</script>

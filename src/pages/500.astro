@@ -1,0 +1,6 @@
+---
+const { error } = Astro.props;
+---
+
+<h1>500</h1>
+<div>{error instanceof Error ? error.message : "Unknown error"}</div>

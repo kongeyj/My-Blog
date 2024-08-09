@@ -1,0 +1,32 @@
+---
+import SmailTag from "./card/SmailTag.astro";
+import Black from "./card/BlackTwo.astro";
+import "../styles/text.css";
+const { post } = Astro.props;
+---
+
+<Black>
+  <div class="left">
+    <a class="text-xxl" href={`/blog/${post.slug}`}>{post.data.title}</a>
+    <div class="text-lg text-green">{post.data.description}</div>
+    <div class="text-md text-blue">作者: {post.data.author}</div>
+    <div class="text-sd text-gray">
+      时间: {post.data.pubDate.toString().slice(0, 10)}
+    </div>
+    <SmailTag tags={post.data.tags} />
+  </div>
+  <div class="right">
+    <img src="../../public/33.jpg" alt="" />
+  </div>
+</Black>
+
+<style>
+  .right {
+    width: 100%;
+    padding-top: 10%;
+  }
+
+  /* .left {
+    margin-right: 1rem;
+  } */
+</style>

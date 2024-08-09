@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import "../styles/global.css";
+import BlogPost from "../components/BlogPost .astro";
+
+import { getCollection } from "astro:content";
+
+const allBlogPosts = await getCollection("blog");
+// console.log(allBlogPosts);
+
+// const allPosts = await Astro.glob("./posts/*.md");
+const pageTitle = "博客";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <!-- <p>{allBlogPosts.}</p> -->
+  {allBlogPosts.map((post) => <BlogPost post={post} />)}
+</BaseLayout>

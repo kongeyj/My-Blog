@@ -1,0 +1,21 @@
+---
+import "../../styles/text.css";
+const { context } = Astro.props;
+---
+
+<div class="container">
+  <p class="text-sm">{context}</p>
+</div>
+
+<style>
+  .container {
+    width: 100%;
+    min-height: 5rem;
+    border: 1px solid #ccc;
+    padding: 0 1rem;
+    margin-bottom: 1rem;
+  }
+  .text-sm {
+    font-size: 1rem;
+  }
+</style>

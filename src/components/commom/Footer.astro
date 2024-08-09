@@ -1,0 +1,22 @@
+---
+const platform = "github";
+const username = "withastro";
+import Social from "../card/Social.astro";
+---
+
+<style>
+  footer {
+    width: 50rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 5rem;
+    margin-top: 2rem;
+    justify-content: center;
+  }
+</style>
+
+<footer>
+  <Social platform="twitter" />
+  <Social platform="github" />
+  <Social platform="youtube" />
+</footer>

@@ -1,0 +1,37 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Greeting from "../components/Greeting";
+import BlackTwo from "../components/card/BlackTwo.astro";
+import BlackCol from "../components/card/BlackCol.astro";
+import Content from "../../README.md";
+import Buttons from "../components/Buttons.astro";
+import "../styles/text.css";
+
+const pageTitle = "首页";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <BlackTwo>
+    <div>
+      <h1 class="text-xxl">HELLO 👋</h1>
+      <p class="text-lg">This is the simple Blog</p>
+      <p class="text-sm">Example</p>
+    </div>
+    <img src="../../public/O.o.jpg" alt="" />
+  </BlackTwo>
+  <BlackCol>
+    <img src="../../public/O.o.jpg" alt="" />
+    <Content />
+  </BlackCol>
+  <!-- <Greeting messages={["Hi", "Hello", "Howdy", "Hey there"]} />
+  <Greeting client:load messages={["Hej", "Hallo", "Hola", "Habari"]} />
+
+  <button id="button">Click Me</button>
+  <script>
+    function handleClick() {
+      alert(1);
+      console.log("button clicked!");
+    }
+    document.getElementById("button").addEventListener("click", handleClick);
+  </script> -->
+</BaseLayout>

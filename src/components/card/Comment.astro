@@ -1,0 +1,73 @@
+---
+import BlackCol from "./BlackCol.astro";
+import { db, Commit, eq } from "astro:db";
+import CommentArea from "./CommentArea.astro";
+const paths = Astro.request.url.toString().split("/");
+const path = paths[paths.length - 1];
+
+if (Astro.request.method === "POST") {
+  // 解析表单数据
+  const date = new Date();
+  const formData = await Astro.request.formData();
+  var commit = formData.get("commit");
+  if (typeof commit === "string" && commit !== "") {
+    // 将表单数据插入到 Comment 表中
+    await db.insert(Commit).values({ path, date, content: commit });
+  }
+}
+const contexts = await db.select().from(Commit).where(eq(Commit.path, path));
+// console.log(contexts);
+---
+
+<BlackCol>
+  <form class="my-form" method="POST">
+    <textarea class="commit" placeholder="欢迎评论" name="commit"></textarea>
+    <div class="sss">
+      <span class="count">0 字</span>
+      <button class="button1">提交</button>
+    </div>
+  </form>
+</BlackCol>
+<div>评论区：</div>
+{contexts.map((context) => <CommentArea context={context.content} />)}
+
+<style>
+  button {
+    padding: 0.3rem;
+    margin: 0.3rem 0.5rem;
+  }
+  .commit {
+    border: 2px solid #ccc;
+    width: 100%;
+    height: 10rem;
+    outline: none;
+    resize: none;
+    /* background-color: aliceblue; */
+  }
+  .sss {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .count {
+    color: #e7e7e7;
+    font-size: 1rem;
+  }
+  .commit:focus {
+    background-color: #e2f2ff;
+  }
+</style>
+<script>
+  const commit = document.querySelector(".commit") as HTMLTextAreaElement;
+  const count = document.querySelector(".count");
+  const myForm = document.querySelector(".my-form");
+
+  commit.addEventListener("input", () => {
+    if (count != null)
+      count.textContent = commit.value.length.toString() + " 字";
+  });
+
+  //   myForm.addEventListener("submit", async (event) => {
+  //     // event.preventDefault(); // 阻止表单默认提交行为
+  //   });
+</script>

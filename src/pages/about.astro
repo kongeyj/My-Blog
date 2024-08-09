@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import BlackCol from "../components/card/BlackCol.astro";
+import "../styles/global.css";
+import "../styles/text.css";
+
+const pageTitle = "关于我";
+---
+
+<BaseLayout pageTitle={pageTitle}>
+  <BlackCol>
+    <h1 class="text-xxl">About My-Blog</h1>
+    <p class="text-lg">This is the simple Blog</p>
+    <p class="text-sm">Example</p>
+  </BlackCol>
+</BaseLayout>
+<style>
+  .text-xxl {
+    border-bottom: 1px solid #ccc;
+  }
+</style>
