@@ -7,27 +7,53 @@ const { post } = Astro.props;
 ---
 
 <Black>
-  <div class="left">
-    <a class="text-xxl" href={`/blog/${post.slug}`}>{post.data.title}</a>
-    <div class="text-lg text-green">{post.data.description}</div>
-    <div class="text-md text-blue">作者: {post.data.author}</div>
-    <div class="text-sd text-gray">
-      时间: {post.data.pubDate.toString().slice(0, 10)}
+  <div class="comm">
+    <div class="left">
+      <a class="text-xxl" href={`/blog/${post.slug}`}>{post.data.title}</a>
+      <div class="text-lg text-green">{post.data.description}</div>
+      <div class="text-md text-blue">作者: {post.data.author}</div>
+      <div class="text-sd text-gray">
+        时间: {post.data.pubDate.toString().slice(0, 10)}
+      </div>
+      <SmailTag tags={post.data.tags} />
     </div>
-    <SmailTag tags={post.data.tags} />
-  </div>
-  <div class="right">
-    <img src="../../public/33.jpg" alt="" />
+    <div class="right">
+      <img src="../../public/33.jpg" alt="" />
+    </div>
   </div>
 </Black>
 
 <style>
-  .right {
-    width: 100%;
-    padding-top: 10%;
+  .comm {
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+    /* grid-template-columns: 1.3fr 1fr; */
   }
-
-  /* .left {
-    margin-right: 1rem;
-  } */
+  img {
+    width: 100%;
+    height: auto;
+  }
+  @media (min-width: 768px) {
+    .comm {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      /* background: #ce7575; */
+    }
+  }
+  img {
+    border-radius: 0.5rem;
+  }
+  :global(.dark) .text-xxl {
+    color: rgb(40 220 227);
+  }
+  :global(.dark) .text-lg {
+    color: #c9f04d;
+  }
+  :global(.dark) .text-md {
+    color: #a9cbdb;
+  }
+  :global(.dark) .text-sd {
+    color: #c0bfbf;
+  }
 </style>
