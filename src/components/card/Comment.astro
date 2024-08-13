@@ -1,21 +1,10 @@
 ---
 import BlackCol from "./BlackCol.astro";
-import { db, Commit, eq } from "astro:db";
+
 import CommentArea from "./CommentArea.astro";
 const paths = Astro.request.url.toString().split("/");
 const path = paths[paths.length - 1];
 
-if (Astro.request.method === "POST") {
-  // 解析表单数据
-  const date = new Date();
-  const formData = await Astro.request.formData();
-  var commit = formData.get("commit");
-  if (typeof commit === "string" && commit !== "") {
-    // 将表单数据插入到 Comment 表中
-    await db.insert(Commit).values({ path, date, content: commit });
-  }
-}
-const contexts = await db.select().from(Commit).where(eq(Commit.path, path));
 // console.log(contexts);
 ---
 
@@ -29,7 +18,6 @@ const contexts = await db.select().from(Commit).where(eq(Commit.path, path));
   </form>
 </BlackCol>
 <div>评论区：</div>
-{contexts.map((context) => <CommentArea context={context.content} />)}
 
 <style>
   button {

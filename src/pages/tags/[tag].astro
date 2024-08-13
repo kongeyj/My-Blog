@@ -1,29 +1,46 @@
 ---
+import { map } from "astro/zod";
 import BlogPost from "../../components/BlogPost .astro";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { getCollection } from "astro:content";
+const a = await getCollection("blog");
+const b = [...new Set(a.map((post) => post.data.tags).flat())];
+
+const c = b.map((tag) => {
+  const filteredPosts = a.filter((post) => post.data.tags.includes(tag));
+  return { params: { tag: tag }, props: { posts: filteredPosts } };
+});
 
 export async function getStaticPaths() {
   const allBlogPosts = await getCollection("blog");
   const uniqueTags = [
     ...new Set(allBlogPosts.map((post) => post.data.tags).flat()),
   ];
+
   return uniqueTags.map((tag) => {
     const filteredPosts = allBlogPosts.filter((post) =>
       post.data.tags.includes(tag)
     );
-    return {
-      params: { tag },
-      props: { posts: filteredPosts },
-    };
+    return { params: { tag: tag }, props: { posts: filteredPosts } };
   });
 }
 
 const { tag } = Astro.params;
-const { posts } = Astro.props;
+// const { posts } = Astro.props;
+const result = c.find((entry) => entry.params.tag === tag);
+
+// 确保 posts 是一个数组
+const validPosts =
+  result && Array.isArray(result.props.posts) ? result.props.posts : [];
 ---
 
 <BaseLayout pageTitle={tag}>
   <p>包含「{tag}」标签的文章</p>
-  {posts.map((post) => <BlogPost post={post} />)}
+  {
+    validPosts.length > 0 ? (
+      validPosts.map((post) => <BlogPost post={post} />)
+    ) : (
+      <p>没有找到标签为「{tag}」的文章。</p>
+    )
+  }
 </BaseLayout>
