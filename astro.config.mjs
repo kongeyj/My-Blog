@@ -8,4 +8,7 @@ export default defineConfig({
   site: "https://example.com",
   integrations: [preact(), tailwind()],
   // output: "server",
+  server: {
+    host: "0.0.0.0", // 使服务器对网络可见
+  },
 });
